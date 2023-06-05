@@ -6,6 +6,7 @@
       <div v-for="(item, index) in list" :key="index" class="aaaaaabbbbbb drewg werewrgvfd wereter retr">
         {{ item }}
       </div>
+      <a href="fwe">5346jo</a>
     </div>
   </div>
 </template>
