@@ -11,16 +11,15 @@
 </template>
 
 <script setup>
-const list = [
-  1, 2, 3, 4, 4, 5, 6,
-
-  6, 7, 54, 34, 534, 3423, 32, 234,
-]
+const list = [1, 2, 3, 4, 4, 5, 6, 6, 7, 54, 34, 534, 3423, 32, 234]
 const a = 1
 const b = 2
 
-const fn = () => {
-  console.log('few99999999999dsjfjweojfoijrewfiojeroigjeiorjgoiejrojgoerjojo')
+const fn = 
+
+() => {
+
+  console.log("few99999999999dsjfjweojfoijrewfiojeroigjeiorjgoiejrojgoerjojo");
 }
 </script>
 
