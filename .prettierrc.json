@@ -1,0 +1,25 @@
+{
+  "singleQuote": true,
+  "semi": false,
+  "bracketSpacing": true,
+  "htmlWhitespaceSensitivity": "ignore",
+  "endOfLine": "auto",
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "overrides": [
+    {
+      "files": "*.js, *.ts",
+      "options": {
+        "printWidth": 200
+      }
+    },
+    {
+      "files": "*.vue",
+      "options": {
+        "htmlWhitespaceSensitivity": "ignore",
+        "parser": "vue",
+        "printWidth": 200
+      }
+    }
+  ]
+}
