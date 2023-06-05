@@ -8,7 +8,5 @@ const fn = () => {
 fn()
 
 const fn11 = () => {
-
-
-  console.log('sets');
+  console.log('sets')
 }
