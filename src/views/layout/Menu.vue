@@ -1,15 +1,24 @@
 <template>
-  <el-menu @select="select" active-text-color="#409eff" background-color="#222d3c" class="el-menu-vertical-demo"
-    :default-active="activeItem" text-color="#f4f4f5" unique-opened :collapse="false" router>
+  <el-menu
+    @select="select"
+    active-text-color="#409eff"
+    background-color="#222d3c"
+    class="el-menu-vertical-demo"
+    :default-active="activeItem"
+    text-color="#f4f4f5"
+    unique-opened
+    :collapse="false"
+    router
+  >
     <MenuItem :menu-list="menuList" />
   </el-menu>
 </template>
 
 <script lang="ts" setup name="Menu">
-import MenuItem from './MenuItem.vue';
-import { useMenuRouteStore } from "@/store/menuRouteStore";
-import { storeToRefs } from "pinia";
-import { useRoute } from 'vue-router';
+import MenuItem from './MenuItem.vue'
+import { useMenuRouteStore } from '@/store/menuRouteStore'
+import { storeToRefs } from 'pinia'
+import { useRoute } from 'vue-router'
 const menuRouteStore = useMenuRouteStore()
 const { menuRoutesShowed: menuList, activeItem } = storeToRefs(menuRouteStore)
 const route = useRoute()
@@ -17,7 +26,6 @@ menuRouteStore.setActiveItem(route.path)
 const select = (index: string) => {
   menuRouteStore.setActiveItem(index)
 }
-
 </script>
 
 <style lang="scss" scoped>

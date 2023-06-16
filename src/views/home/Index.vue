@@ -5,10 +5,10 @@
 </template>
 
 <script setup lang="ts">
-import { greet } from '@/utils';
-import { ElNotification } from 'element-plus';
-import { useLoginStore } from '@/store/loginStore';
-import { storeToRefs } from 'pinia';
+import { greet } from '@/utils'
+import { ElNotification } from 'element-plus'
+import { useLoginStore } from '@/store/loginStore'
+import { storeToRefs } from 'pinia'
 const loginStore = useLoginStore()
 const { userInfo } = storeToRefs(loginStore)
 ElNotification({
@@ -16,7 +16,6 @@ ElNotification({
   message: userInfo.value.username,
   type: 'success',
 })
-
 </script>
 
 <style scoped></style>

@@ -20,7 +20,6 @@ export default defineConfig(({ command, mode }) => {
         mockPath: 'mock',
         watchFiles: true,
         localEnabled: command === 'serve' && mode === 'mock', // 是否启用 mock 功能
-
       }),
     ],
 
@@ -66,8 +65,7 @@ export default defineConfig(({ command, mode }) => {
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/mock-dev-api/, ''),
         },
-      }
-    }
-
+      },
+    },
   }
 })

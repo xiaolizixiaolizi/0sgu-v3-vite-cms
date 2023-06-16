@@ -12,7 +12,7 @@
       </el-sub-menu>
 
       <!-- 要么直接就是一级菜单 -->
-      <el-menu-item v-else :index="item.path" >
+      <el-menu-item v-else :index="item.path">
         <component v-if="item.meta?.icon" :is="`el-icon-${item.meta?.icon}`"></component>
         <span>{{ item.meta?.title }}</span>
       </el-menu-item>
@@ -25,10 +25,8 @@ export type Props = {
   menuList: any
 }
 withDefaults(defineProps<Props>(), {
-  menuList: []
+  menuList: [],
 })
-
-
 </script>
 
 <style scoped></style>

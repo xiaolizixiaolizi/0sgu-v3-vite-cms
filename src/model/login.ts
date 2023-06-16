@@ -1,11 +1,10 @@
-import request from "@/utils/request"
+import request from '@/utils/request'
 class Login {
   static async login(data) {
     const r = await request({
       method: 'post',
       url: '/api/user/login',
-      data
-
+      data,
     })
     return r
   }
@@ -16,7 +15,6 @@ class Login {
     })
     return r
   }
-
 }
 
 export default Login

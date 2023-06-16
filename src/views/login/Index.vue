@@ -17,24 +17,20 @@
   </div>
 </template>
 
-<script setup lang="ts"  name="Login">
+<script setup lang="ts" name="Login">
 import useFormConfig from '@/config/login/useFormConfig'
-import router from '@/router';
+import router from '@/router'
 
-
-
-import { useLoginStore } from '@/store/loginStore';
+import { useLoginStore } from '@/store/loginStore'
 const { formData, formConfig, rules, lFormRef } = useFormConfig()
 const loginStore = useLoginStore()
 const onSubmit = async () => {
-  const r = await lFormRef.value?.validate()?.catch(_ => false)
+  const r = await lFormRef.value?.validate()?.catch((_) => false)
   if (!r) return
-  loginStore.login(formData.value).then(_ => {
+  loginStore.login(formData.value).then((_) => {
     router.push({ name: 'layout' })
   })
-
 }
-
 </script>
 
 <style scoped lang="scss">

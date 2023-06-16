@@ -10,8 +10,7 @@
       <el-header>
         <div class="left">
           <el-breadcrumb separator="/">
-            <el-breadcrumb-item v-for="(item, index) in  matchRouted" :key="index">{{ item.meta.title }}
-            </el-breadcrumb-item>
+            <el-breadcrumb-item v-for="(item, index) in matchRouted" :key="index">{{ item.meta.title }}</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
         <div class="right">
@@ -38,8 +37,8 @@
 </template>
 
 <script lang="ts" setup>
-import { nextTick, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { nextTick, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { useFullscreen } from '@vueuse/core'
 import Menu from './Menu.vue'
 const { toggle } = useFullscreen()
@@ -50,24 +49,21 @@ const refresh = async () => {
   isShowRouterView.value = false
   await nextTick()
   isShowRouterView.value = true
-
 }
 
-
-watch(() => route.path, () => {
-  matchRouted.value = route.matched
-}, { immediate: true })
-
-
-
+watch(
+  () => route.path,
+  () => {
+    matchRouted.value = route.matched
+  },
+  { immediate: true },
+)
 </script>
 
 <style scoped lang="scss">
 .layout-container-demo {
   height: 100vh;
 }
-
-
 
 .layout-container-demo .el-aside {
   color: var(--el-text-color-primary);
@@ -82,10 +78,9 @@ watch(() => route.path, () => {
   padding: 0;
 }
 
-.my-container>.el-main {
+.my-container > .el-main {
   padding: 20px 0 0 20px;
 }
-
 
 .layout-container-demo .my-container {
   .el-header {
@@ -95,13 +90,13 @@ watch(() => route.path, () => {
     align-items: center;
     border-bottom: 1px solid var(--el-border-color);
 
-    .left {}
+    .left {
+    }
 
     .right {
       flex: 1;
       display: flex;
       justify-content: flex-end;
-
     }
   }
 }
