@@ -8,8 +8,7 @@
           <h2>欢迎来到硅谷甄选</h2>
           <l-form :form-data="formData" :form-config="formConfig" :rules="rules" ref="lFormRef" label-width="0px">
             <template v-slot:buttonGroup>
-              <el-button type="primary" @click="onSubmit">登录</el-button>
-              <el-button type="primary" auto-insert-space @click="onReset">重置</el-button>
+              <el-button :style="{ width: '100%' }" type="primary" @click="onSubmit">登录</el-button>
             </template>
           </l-form>
         </section>
@@ -18,17 +17,24 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts"  name="Login">
 import useFormConfig from '@/config/login/useFormConfig'
-const { formData, formConfig, rules, lFormRef } = useFormConfig()
+import router from '@/router';
 
+
+
+import { useLoginStore } from '@/store/loginStore';
+const { formData, formConfig, rules, lFormRef } = useFormConfig()
+const loginStore = useLoginStore()
 const onSubmit = async () => {
-  const r = await lFormRef.value?.validate()
-  console.log('log___r___log', r)
+  const r = await lFormRef.value?.validate()?.catch(_ => false)
+  if (!r) return
+  loginStore.login(formData.value).then(_ => {
+    router.push({ name: 'layout' })
+  })
+
 }
-const onReset = () => {
-  lFormRef.value?.resetFields()
-}
+
 </script>
 
 <style scoped lang="scss">

@@ -19,8 +19,8 @@ export default defineConfig(({ command, mode }) => {
       viteMockServe({
         mockPath: 'mock',
         watchFiles: true,
-        enable: command === 'serve',
-        // enable: command === 'serve' && mode === 'mock', // 是否启用 mock 功能
+        localEnabled: command === 'serve' && mode === 'mock', // 是否启用 mock 功能
+
       }),
     ],
 
@@ -58,5 +58,16 @@ export default defineConfig(({ command, mode }) => {
         '@': path.resolve(__dirname, './src'), // 相对路径别名配置，使用 @ 代替 src
       },
     },
+
+    server: {
+      proxy: {
+        '/mock-dev-api': {
+          target: 'http://127.0.0.1:5173',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/mock-dev-api/, ''),
+        },
+      }
+    }
+
   }
 })

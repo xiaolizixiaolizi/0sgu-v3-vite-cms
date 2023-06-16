@@ -5,15 +5,15 @@ import LForm from '@/components/LForm/Index.vue'
 export default () => {
   const lFormRef = ref<InstanceType<typeof LForm> | null>(null)
   const formData = ref({
-    name: '',
-    pasword: '',
+    username: '',
+    password: '',
   })
   const formConfig = ref([
     /** 输入框 input*/
     {
       /** fromItem数据项配置 ,里面传入form-item所有数据项*/
       formItem: {
-        prop: 'name',
+        prop: 'username',
         label: '',
       },
       /**每个具体组件的prop数据项,is是指定是何种组件,  */
@@ -24,9 +24,8 @@ export default () => {
         clearable: true,
         'prefix-icon': 'el-icon-user',
         /** 注意事件名前面统统加上on */
-        onChange: (e) => {
-          console.log('log___e___log', e)
-        },
+        // onChange: (e) => {
+        // },
       },
     },
     {

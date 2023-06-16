@@ -1,6 +1,7 @@
 if (isProd) console.log = noop
 import { createApp } from 'vue'
 import App from '@/App.vue'
+import pinia from './store'
 import router from './router'
 import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
@@ -11,6 +12,7 @@ import { isProd, noop, toLine } from './utils'
 import GlobalComponents from './components/Index'
 
 const app = createApp(App)
+app.use(pinia)
 app.use(router)
 app.use(ElementPlus, {
   locale: zhCn,
@@ -20,6 +22,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(`el-icon${toLine(key)}`, component)
 }
 import 'virtual:svg-icons-register'
+
 app.use(GlobalComponents)
 
 app.mount('#app')
