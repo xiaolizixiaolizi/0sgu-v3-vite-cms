@@ -5,24 +5,25 @@ import LForm from '@/components/LForm/Index.vue'
 export default () => {
   const lFormRef = ref<InstanceType<typeof LForm> | null>(null)
   const formData = ref({
-    username: 'admin',
-    password: 'atguigu123',
+    id: '',
+    tmName: '',
+    logoUrl: '',
   })
   const formConfig = ref([
     /** 输入框 input*/
     {
       /** fromItem数据项配置 ,里面传入form-item所有数据项*/
       formItem: {
-        prop: 'username',
-        label: '',
+        prop: 'tmName',
+        label: '品牌名称',
       },
       /**每个具体组件的prop数据项,is是指定是何种组件,  */
       component: {
         is: 'el-input',
         class: '',
-        placeholder: '请输入名称',
+        placeholder: '请输入name',
         clearable: true,
-        'prefix-icon': 'el-icon-user',
+        autocomplete: 'off',
         /** 注意事件名前面统统加上on */
         // onChange: (e) => {
         // },
@@ -31,17 +32,19 @@ export default () => {
     {
       /** fromItem数据项配置 ,里面传入form-item所有数据项*/
       formItem: {
-        prop: 'password',
-        label: '',
+        prop: 'logoUrl',
+        label: '上传logo',
       },
       /**每个具体组件的prop数据项,is是指定是何种组件,  */
       component: {
-        is: 'el-input',
+        is: 'el-select',
         class: '',
-        placeholder: '请输入密码',
+        placeholder: '请输入Zones',
         clearable: true,
-        'prefix-icon': 'el-icon-lock',
-        'show-password': true,
+        options: [
+          { label: 'Zone No.1', value: 'shanghai' },
+          { label: 'Zone No.2', value: 'beijing' },
+        ],
         onChange: (e) => {},
       },
     },
@@ -74,10 +77,46 @@ export default () => {
     })
     return res
   })
+
+  /**
+   * 二次补充rules字段
+   */
+  rules.value['tmName'].push({
+    min: 2,
+    message: '品牌名称不少于2位',
+    trigger: 'blur',
+  })
+
+  const dialogConfig = ref({
+    title: '编辑品牌',
+    dialogFormVisible: false,
+  })
+  const dialogResetAndClose = () => {
+    lFormRef.value?.resetFields()
+    setDialogFormVisible(false)
+  }
+
+  const setDialogFormVisible = (visible: boolean) =>
+    (dialogConfig.value.dialogFormVisible = visible)
+  const validate = async () => {
+    const r = await lFormRef.value?.validate().catch((_) => false) //验证通过返回ture，失败返回false
+    return r
+  }
+  const initFormData = (data) => {
+    Object.keys(formData.value).forEach((key) => {
+      if (data.hasOwnProperty(key)) formData.value[key] = data[key]
+    })
+  }
+
   return {
     lFormRef,
     formData,
     formConfig,
     rules,
+    dialogConfig,
+    initFormData,
+    setDialogFormVisible,
+    dialogResetAndClose,
+    validate,
   }
 }

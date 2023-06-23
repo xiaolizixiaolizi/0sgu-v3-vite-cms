@@ -7,6 +7,7 @@ import { viteMockServe } from 'vite-plugin-mock'
 
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
+  console.log('log___env___log', env)
   //mode就是package脚本里面--mode后面自定义环境变量 development|test|production
   return {
     plugins: [
@@ -60,11 +61,19 @@ export default defineConfig(({ command, mode }) => {
 
     server: {
       proxy: {
-        '/mock-dev-api': {
-          target: 'http://127.0.0.1:5173',
+        [env.VITE_APP_BASE_API]: {
+          target: env.VITE_APP_BASE_API_URL,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/mock-dev-api/, ''),
+          // rewrite: (path) => path.replace(/^\/mock-dev-api/, ''),
+          rewrite: (path) => {
+            return path.replace(new RegExp(`^${env.VITE_APP_BASE_API}`), '')
+          },
         },
+        // '/mock-dev-api': {
+        //   target: 'http://127.0.0.1:5173',
+        //   changeOrigin: true,
+        //   rewrite: (path) => path.replace(/^\/mock-dev-api/, ''),
+        // },
       },
     },
   }

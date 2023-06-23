@@ -20,15 +20,16 @@
 <script setup lang="ts" name="Login">
 import useFormConfig from '@/config/login/useFormConfig'
 import router from '@/router'
-
 import { useLoginStore } from '@/store/loginStore'
+import { storeToRefs } from 'pinia'
 const { formData, formConfig, rules, lFormRef } = useFormConfig()
 const loginStore = useLoginStore()
+const { activeItem } = storeToRefs(loginStore)
 const onSubmit = async () => {
   const r = await lFormRef.value?.validate()?.catch((_) => false)
   if (!r) return
   loginStore.login(formData.value).then((_) => {
-    router.push({ name: 'layout' })
+    router.push(activeItem.value)
   })
 }
 </script>

@@ -16,15 +16,15 @@
 
 <script lang="ts" setup name="Menu">
 import MenuItem from './MenuItem.vue'
-import { useMenuRouteStore } from '@/store/menuRouteStore'
+import { useLoginStore } from '@/store/loginStore'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
-const menuRouteStore = useMenuRouteStore()
-const { menuRoutesShowed: menuList, activeItem } = storeToRefs(menuRouteStore)
+const loginStore = useLoginStore()
+const { menuRoutesShowed: menuList, activeItem } = storeToRefs(loginStore)
 const route = useRoute()
-menuRouteStore.setActiveItem(route.path)
+loginStore.setActiveItem(route.path)
 const select = (index: string) => {
-  menuRouteStore.setActiveItem(index)
+  loginStore.setActiveItem(index)
 }
 </script>
 

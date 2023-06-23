@@ -10,9 +10,16 @@ const constantRoutes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'layout',
-    meta: { title: '首页', icon: 'user' },
+    meta: { title: '首页' },
     component: Layout,
   },
+  // {
+  //   path: '/home',
+  //   name: 'home',
+  //   meta: { title: '首页', },
+  //   // component: () => import('@/views/home/Index.vue'),
+  //   component: Layout,
+  // },
   {
     path: '/screen',
     name: 'Screen',
@@ -72,7 +79,7 @@ const constantRoutes: RouteRecordRaw[] = [
       {
         path: '/product/trademark',
         name: 'Trademark',
-        meta: { title: 'Trademark', icon: 'user' },
+        meta: { title: '品牌管理', icon: 'user' },
         component: () => import('@/views/product/trademark/Index.vue'),
       },
     ],

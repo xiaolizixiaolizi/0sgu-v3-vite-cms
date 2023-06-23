@@ -15,16 +15,28 @@
         </div>
         <div class="right">
           <el-button icon="el-icon-refresh" circle @click="refresh"></el-button>
-          <el-button size="default" icon="el-icon-full-screen" circle @click="toggle"></el-button>
-          <el-button type="primary" size="default">333</el-button>
-          <el-button type="primary" size="default">444</el-button>
-          <el-button type="primary" size="default">555</el-button>
+          <el-button icon="el-icon-full-screen" circle @click="toggle"></el-button>
+          <el-button icon="el-icon-setting" circle></el-button>
+          <el-avatar :size="34" :src="userInfo.avatar" style="margin: 0 8px" />
+          <el-dropdown trigger="hover" style="align-items: center" @command="handleCommand">
+            <span class="el-dropdown-link">
+              {{ userInfo.username }}
+              <el-icon-arrow-down class="el-icon--right"></el-icon-arrow-down>
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </div>
       </el-header>
 
       <el-main>
         <el-scrollbar>
-          <router-view v-slot="{ Component, route }">
+          <HomeView v-if="isHomeView" />
+
+          <router-view v-else v-slot="{ Component, route }">
             <transition name="fade">
               <!-- 路由刷新v-if -->
               <component :is="Component" :key="route.path" v-if="isShowRouterView" />
@@ -37,27 +49,31 @@
 </template>
 
 <script lang="ts" setup>
-import { nextTick, ref, watch } from 'vue'
+import { nextTick, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useFullscreen } from '@vueuse/core'
+import { useLoginStore } from '@/store/loginStore'
 import Menu from './Menu.vue'
+import { storeToRefs } from 'pinia'
+import HomeView from '@/views/home/Index.vue'
+import router from '@/router'
+const loginStore = useLoginStore()
+const { userInfo } = storeToRefs(loginStore)
 const { toggle } = useFullscreen()
 const route = useRoute()
-let matchRouted = ref()
-const isShowRouterView = ref(true)
+const isHomeView = computed(() => route.name === 'layout')
+const matchRouted = computed(() => route.matched)
+const isShowRouterView = ref(true) //路由刷新
 const refresh = async () => {
   isShowRouterView.value = false
   await nextTick()
   isShowRouterView.value = true
 }
-
-watch(
-  () => route.path,
-  () => {
-    matchRouted.value = route.matched
-  },
-  { immediate: true },
-)
+const handleCommand = async (command: string | number | object) => {
+  console.log(`click on item ${command}`)
+  await loginStore.logout()
+  router.push({ name: 'login' })
+}
 </script>
 
 <style scoped lang="scss">
@@ -109,5 +125,9 @@ watch(
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.el-dropdown-link:focus-visible {
+  outline: 0;
 }
 </style>
